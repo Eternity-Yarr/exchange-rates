@@ -2,6 +2,8 @@ package org.lutra.rates;
 
 import org.lutra.rates.adapters.ValueAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -12,6 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *
  * @author Dmitry V. (savraz [at] gmail.com)
  */
+@XmlAccessorType(XmlAccessType.NONE)
 public class ValuteNode
 {
 	private String id;
@@ -20,6 +23,7 @@ public class ValuteNode
 	private int nominal;
 	private String name;
 	private Number value;
+	private ValuteNode(){}
 
 	@XmlAttribute(name = "ID")
 	public String getId()
@@ -76,5 +80,15 @@ public class ValuteNode
 	public void setValue(Number value)
 	{
 		this.value = value;
+	}
+	@Override
+	public String toString()
+	{
+		return "ValuteNode{" +
+			"charCode='" + charCode + '\'' +
+			", nominal=" + nominal +
+			", name='" + name + '\'' +
+			", value=" + value +
+			'}';
 	}
 }

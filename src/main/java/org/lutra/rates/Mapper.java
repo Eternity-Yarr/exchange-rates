@@ -2,10 +2,9 @@ package org.lutra.rates;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.Reader;
 
 /**
  * 04.08.2014 at 13:03
@@ -24,27 +23,24 @@ public class Mapper<T>
 		context = JAXBContext.newInstance(clazz);
 	}
 
-	public String asXML(T obj) throws JAXBException
+	public T asPOJO(Reader xml) throws JAXBException
 	{
-		if(obj != null && obj.getClass().equals(clazz))
+		Unmarshaller um = context.createUnmarshaller();
+		Object o;
+		try
 		{
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			//Replacing default JAXB xml header to get rid of standalone="yes" property
-			m.setProperty(Marshaller.JAXB_FRAGMENT, true);
-			StringWriter xml = new StringWriter().append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-
-			m.marshal(obj, xml);
-
-			return xml.toString();
+			o = um.unmarshal(xml);
 		}
-		else
-			throw new IllegalArgumentException(
-				String.format(
-					"Object supplied for marshalling of wrong type expected %s, given %s",
-					clazz,
-					obj != null ? obj.getClass() : "null"));
+		catch(IllegalArgumentException e)
+		{
+			throw new JAXBException(e);
+		}
+
+		//noinspection unchecked
+		@SuppressWarnings("Unchecked")
+		T t = (T)o;
+
+		return t;
 	}
 
 	public T asPOJO(InputStream xml) throws JAXBException

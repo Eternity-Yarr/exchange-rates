@@ -1,13 +1,12 @@
 package org.lutra.rates;
 
 import org.lutra.rates.adapters.DateAdapter;
-import org.lutra.rates.adapters.ValuteMapAdapter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,11 +16,14 @@ import java.util.Map;
  * @author Dmitry V. (savraz [at] gmail.com)
  */
 @XmlRootElement(name = "ValCurs")
+@XmlAccessorType(XmlAccessType.NONE)
 public class CBRResponse
 {
 	private Date date;
 	private String name;
-	private Map<String, ValuteNode> valute;
+	private Map<String, ValuteNode> valuteMap = null;
+	private List<ValuteNode> valute;
+	private CBRResponse(){}
 
 	@XmlAttribute(name ="Date")
 	@XmlJavaTypeAdapter(DateAdapter.class)
@@ -42,14 +44,28 @@ public class CBRResponse
 	{
 		this.name = name;
 	}
-	@XmlJavaTypeAdapter(ValuteMapAdapter.class)
 	@XmlElement(name ="Valute")
-	public Map<String, ValuteNode> getValute()
+	public List<ValuteNode> getValute()
 	{
 		return valute;
 	}
-	public void setValute(Map<String, ValuteNode> valute)
+	public void setValute(List<ValuteNode> valutes)
 	{
-		this.valute = valute;
+		this.valute = valutes;
+	}
+	private Map<String, ValuteNode> getValuteMap()
+	{
+		if(valuteMap == null)
+		{
+			valuteMap = new HashMap<String, ValuteNode>();
+			for(ValuteNode v : getValute())
+				valuteMap.put(v.getCharCode(), v);
+		}
+
+		return valuteMap;
+	}
+	public ValuteNode getValute(String code)
+	{
+		return getValuteMap().get(code);
 	}
 }

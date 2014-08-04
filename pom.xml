@@ -4,7 +4,7 @@
   <groupId>org.lutra</groupId>
   <artifactId>exchange-rates</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>exchange-rates</name>
   <dependencies>
     <dependency>

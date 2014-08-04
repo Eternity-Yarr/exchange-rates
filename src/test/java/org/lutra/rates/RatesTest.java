@@ -45,8 +45,11 @@ public class RatesTest
 		Rates r = Rates.i();
 		double usd = r.getRateOf("USD");
 		double eur = r.getRateOf("EUR");
+		ValuteNode vn = r.getValute("GBP");
 
 		assertTrue("Non zero", usd > 0);
 		assertTrue("Non zero", eur > 0);
+		assertNotNull("GBP is still exists", vn);
+		assertEquals("Name of GBP", "Фунт стерлингов Соединенного королевства", vn.getName());
 	}
 }

@@ -82,6 +82,6 @@ public class Rates
 
 	public ValuteNode getValute(String code)
 	{
-		return cbr.getValute("USD");
+		return cbr.getValute(code);
 	}
 }

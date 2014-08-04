@@ -55,9 +55,7 @@ public class Rates
 		Mapper<CBRResponse> m = new Mapper<>(CBRResponse.class);
 		CBRResponse ret = null;
 		if(response != null)
-		{
 			ret = m.asPOJO(new StringReader(response));
-		}
 
 		return ret;
 	}

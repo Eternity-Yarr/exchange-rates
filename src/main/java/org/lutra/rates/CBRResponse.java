@@ -57,7 +57,7 @@ public class CBRResponse
 	{
 		if(valuteMap == null)
 		{
-			valuteMap = new HashMap<String, ValuteNode>();
+			valuteMap = new HashMap<>();
 			for(ValuteNode v : getValute())
 				valuteMap.put(v.getCharCode(), v);
 		}

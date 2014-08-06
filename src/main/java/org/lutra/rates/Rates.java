@@ -1,6 +1,7 @@
 package org.lutra.rates;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -33,19 +34,22 @@ public class Rates
 	{
 		String ret;
 		URLConnection con = new URL(URL).openConnection();
-		try
-		(
-			InputStream is = con.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is, "cp1251");
-			BufferedReader br = new BufferedReader(isr)
-		)
-		{
-			String in;
-			StringBuilder sb = new StringBuilder(50000);
-			while((in = br.readLine()) != null)
-				sb.append(in);
-			ret = sb.toString();
-		}
+		if (((HttpURLConnection)con).getResponseCode() == 200)
+			try
+			(
+				InputStream is = con.getInputStream();
+				InputStreamReader isr = new InputStreamReader(is, "cp1251");
+				BufferedReader br = new BufferedReader(isr)
+			)
+			{
+				String in;
+				StringBuilder sb = new StringBuilder(50000);
+				while((in = br.readLine()) != null)
+					sb.append(in);
+				ret = sb.toString();
+			}
+		else
+			throw new IOException("Connection failed");
 
 		return ret;
 	}

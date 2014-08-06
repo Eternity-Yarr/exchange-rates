@@ -27,7 +27,7 @@ int code = gbp.getNumCode(); // 826
 [...cut...]
 [INFO] 
 [INFO] --- maven-jar-plugin:2.2:jar (default-jar) @ exchange-rates ---
-[INFO] Building jar: /home/user/dist/exchange-rates/target/exchange-rates-1.0.jar
+[INFO] Building jar: /home/user/dist/exchange-rates/target/exchange-rates-1.1.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------

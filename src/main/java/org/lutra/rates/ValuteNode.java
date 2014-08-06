@@ -34,7 +34,6 @@ public class ValuteNode
 	{
 		this.id = id;
 	}
-
 	@XmlElement(name = "NumCode")
 	public int getNumCode()
 	{

@@ -29,11 +29,12 @@ public class CBRResponse
 	@XmlJavaTypeAdapter(DateAdapter.class)
 	public Date getDate()
 	{
-		return date;
+		return new Date(date.getTime());
 	}
 	public void setDate(Date date)
 	{
-		this.date = date;
+		if(date != null)
+			this.date = new Date(date.getTime());
 	}
 	@XmlAttribute(name ="name")
 	public String getName()

@@ -14,12 +14,10 @@ import java.io.Reader;
  */
 public class Mapper<T>
 {
-	Class<T> clazz;
 	private JAXBContext context;
 
 	public Mapper(Class<T> clazz) throws JAXBException
 	{
-		this.clazz = clazz;
 		context = JAXBContext.newInstance(clazz);
 	}
 
